@@ -26,11 +26,7 @@ export default {
       show: false,
     };
   },
-  mounted() {
-    if (this.isMobile) {
-      alert("mobile device");
-    }
-  },
+  mounted() {},
   methods: {
     onError(err) {
       console.debug({ err: err.message });
