@@ -30,6 +30,7 @@
               >
                 <div v-if="window.ethereum">
                   <Connector
+                    v-if="!connector.mobileOnly"
                     @connect="connectToWallet"
                     :connector="connector"
                   />
@@ -147,6 +148,7 @@ export default {
   data() {
     return {
       availableConnectors,
+      window,
     };
   },
   mounted() {
