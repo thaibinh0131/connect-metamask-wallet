@@ -28,16 +28,21 @@
               <template
                 v-if="['metamask', 'metamask-mobile'].includes(connector.type)"
               >
-                <a
-                  v-if="connector.href && !window.ethereum"
-                  :href="connector.href"
-                  ><Connector :connector="connector"
-                /></a>
-                <Connector
-                  @connect="connectToWallet"
-                  v-else
-                  :connector="connector"
-                />
+                <div v-if="window.ethereum">
+                  <Connector
+                    @connect="connectToWallet"
+                    :connector="connector"
+                  />
+                </div>
+                <div v-else>
+                  <template v-if="isMobile">
+                    <a
+                      v-if="connector.href && !window.ethereum"
+                      :href="connector.href"
+                      ><Connector :connector="connector"
+                    /></a>
+                  </template>
+                </div>
               </template>
               <template v-else>
                 <Connector @connect="connectToWallet" :connector="connector" />
