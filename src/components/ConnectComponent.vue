@@ -5,6 +5,14 @@
         <div class="connect-modal-container">
           <div class="connect-modal-body">
             <div v-for="connector in availableConnectors" :key="connector.type">
+              <template v-if="!isMobile">
+                <div v-if="!connector.mobileOnly">
+                  <Connector
+                    :connector="connector"
+                    @connect="connectToWallet"
+                  />
+                </div>
+              </template>
               <template v-if="isMobile">
                 <div v-if="connector.mobile">
                   <a v-if="connector.href" :href="connector.href"
@@ -14,14 +22,6 @@
                     @connect="connectToWallet"
                     v-else
                     :connector="connector"
-                  />
-                </div>
-              </template>
-              <template v-if="!isMobile">
-                <div v-if="!connector.mobileOnly">
-                  <Connector
-                    :connector="connector"
-                    @connect="connectToWallet"
                   />
                 </div>
               </template>

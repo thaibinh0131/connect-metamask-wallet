@@ -14,10 +14,22 @@ export default {
   components: {
     ConnectComponent,
   },
+  computed: {
+    isMobile() {
+      return /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        navigator.userAgent
+      );
+    },
+  },
   data() {
     return {
       show: false,
     };
+  },
+  mounted() {
+    if (this.isMobile) {
+      alert("mobile device");
+    }
   },
   methods: {
     onError(err) {
