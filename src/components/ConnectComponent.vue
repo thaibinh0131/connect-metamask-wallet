@@ -62,7 +62,7 @@ const availableConnectors = [
     description: "Connect to your Metamask Wallet",
     mobile: true,
     mobileOnly: true,
-    href: "https://metamask.app.link/dapp/tank-pre-marketplace-app.fiberbox.net",
+    href: "https://metamask.app.link/dapp/test-wallet-link-metamask.onrender.com/",
   },
 ];
 
@@ -300,6 +300,10 @@ export default {
   background-color: #fff;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
   border-radius: 16px;
+}
+
+.connect-modal-body a {
+  text-decoration: none;
 }
 
 /*
