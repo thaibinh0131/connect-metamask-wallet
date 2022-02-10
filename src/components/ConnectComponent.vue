@@ -158,6 +158,8 @@ export default {
     this.$nextTick(() => {
       if (this.cachedConnector) {
         this.connectToWallet(this.cachedConnector);
+      } else if (window.ethereum.isMetaMask && this.isMobile) {
+        this.connectToWallet("metamask");
       }
     });
   },
