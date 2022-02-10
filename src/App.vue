@@ -1,9 +1,13 @@
 <template>
   <div id="app">
     <div>
-      <button @click="show = true">Open modal connect</button>
+      <button v-if="!account" @click="show = true">Open modal connect</button>
+      <div v-else>
+        Account: {{ account }}
+        <button @click="disconnect">Disconnect</button>
+      </div>
     </div>
-    <ConnectComponent @error="onError" v-model="show" />
+    <ConnectComponent @error="onError" @response="onResponse" v-model="show" />
   </div>
 </template>
 
@@ -24,6 +28,9 @@ export default {
   data() {
     return {
       show: false,
+      provider: null,
+      account: null,
+      chainId: null,
     };
   },
   mounted() {},
@@ -31,6 +38,16 @@ export default {
     onError(err) {
       console.debug({ err: err.message });
       console.error(err);
+    },
+    onResponse({ provider, account, chainId }) {
+      this.provider = provider;
+      this.account = account;
+      this.chainId = chainId;
+    },
+    disconnect() {
+      this.provider = null;
+      this.account = null;
+      this.chainId = null;
     },
   },
 };

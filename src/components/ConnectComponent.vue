@@ -149,6 +149,9 @@ export default {
     return {
       availableConnectors,
       window,
+      provider: null,
+      account: null,
+      chainId: null,
     };
   },
   mounted() {
@@ -173,8 +176,6 @@ export default {
           id,
           connect: connector,
         });
-        alert(`connect success ${response.account}`);
-        console.log(id);
       } catch (error) {
         console.debug({ error });
 
