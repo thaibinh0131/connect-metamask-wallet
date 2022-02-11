@@ -26,13 +26,6 @@ export default {
         navigator.userAgent
       );
     },
-    isIOS() {
-      return (
-        /iPhone|iPad|iPod/i.test(navigator.userAgent) ||
-        // iPad on iOS 13 detection
-        (navigator.userAgent.includes("Mac") && "ontouchend" in document)
-      );
-    },
   },
   data() {
     return {
@@ -43,18 +36,7 @@ export default {
       signature: null,
     };
   },
-  mounted() {
-    document.addEventListener("visibilitychange", () => {
-      console.debug({ isIOS: this.isIOS });
-      if (
-        document.visibilityState === "hidden" &&
-        this.isIOS &&
-        window.localStorage.getItem("WALLETCONNECT_DEEPLINK_CHOICE")
-      ) {
-        window.localStorage.removeItem("WALLETCONNECT_DEEPLINK_CHOICE");
-      }
-    });
-  },
+
   methods: {
     onError(err) {
       console.debug({ err: err.message });
