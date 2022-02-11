@@ -55,10 +55,7 @@ export default {
       this.chainId = chainId;
       const web3 = new Web3(provider);
       document.addEventListener("visibilitychange", function () {
-        alert(
-          this.isIOS,
-          window.localStorage.getItem("WALLETCONNECT_DEEPLINK_CHOICE")
-        );
+        alert(window.localStorage.getItem("WALLETCONNECT_DEEPLINK_CHOICE"));
         // if (document.visibilityState === "hidden" && this.isIOS) {
         //   window.localStorage.removeItem("WALLETCONNECT_DEEPLINK_CHOICE");
         // }
