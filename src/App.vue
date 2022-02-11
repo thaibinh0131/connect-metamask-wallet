@@ -58,6 +58,7 @@ export default {
       this.provider = null;
       this.account = null;
       this.chainId = null;
+      window.localStorage.clear();
     },
   },
 };
