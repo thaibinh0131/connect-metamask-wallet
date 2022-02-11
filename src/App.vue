@@ -3,7 +3,7 @@
     <div>
       <button v-if="!account" @click="show = true">Open modal connect</button>
       <div v-else>
-        Account: {{ account }} ChainId: {{ chainId }} Signature: {{ signature }}
+        Account: {{ account }} ChainId: {{ chainId }}
         <button @click="disconnect">Disconnect</button>
       </div>
     </div>
