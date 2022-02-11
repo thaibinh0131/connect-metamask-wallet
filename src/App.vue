@@ -46,10 +46,13 @@ export default {
   mounted() {
     document.addEventListener("visibilitychange", () => {
       console.debug({ isIOS: this.isIOS });
-      alert(this.isIOS);
-      // if (document.visibilityState === "hidden" && this.isIOS) {
-      //   window.localStorage.removeItem("WALLETCONNECT_DEEPLINK_CHOICE");
-      // }
+      if (
+        document.visibilityState === "hidden" &&
+        this.isIOS &&
+        window.localStorage.getItem("WALLETCONNECT_DEEPLINK_CHOICE")
+      ) {
+        window.localStorage.removeItem("WALLETCONNECT_DEEPLINK_CHOICE");
+      }
     });
   },
   methods: {
