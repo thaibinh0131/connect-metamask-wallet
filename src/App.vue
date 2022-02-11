@@ -26,6 +26,13 @@ export default {
         navigator.userAgent
       );
     },
+    isIOS() {
+      return (
+        /iPhone|iPad|iPod/i.test(navigator.userAgent) ||
+        // iPad on iOS 13 detection
+        (navigator.userAgent.includes("Mac") && "ontouchend" in document)
+      );
+    },
   },
   data() {
     return {
@@ -53,8 +60,10 @@ export default {
         account
       );
       this.signature = signature;
-      if (localStorage.getItem("WALLETCONNECT_DEEPLINK_CHOICE")) {
-        localStorage.removeItem("WALLETCONNECT_DEEPLINK_CHOICE");
+      if (this.isIOS) {
+        if (localStorage.getItem("WALLETCONNECT_DEEPLINK_CHOICE")) {
+          localStorage.removeItem("WALLETCONNECT_DEEPLINK_CHOICE");
+        }
       }
     },
     disconnect() {
