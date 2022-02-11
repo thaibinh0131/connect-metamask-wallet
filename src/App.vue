@@ -51,11 +51,11 @@ export default {
     };
   },
   mounted() {
-    document.addEventListener("visibilitychange", function () {
-      if (document.visibilityState === "hidden" && this.isIOS) {
-        window.localStorage.removeItem("WALLETCONNECT_DEEPLINK_CHOICE");
-      }
-    });
+    // document.addEventListener("visibilitychange", function () {
+    //   if (document.visibilityState === "hidden" && this.isIOS) {
+    //     window.localStorage.removeItem("WALLETCONNECT_DEEPLINK_CHOICE");
+    //   }
+    // });
   },
   methods: {
     onError(err) {
