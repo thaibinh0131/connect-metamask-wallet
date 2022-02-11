@@ -44,11 +44,9 @@ export default {
     };
   },
   mounted() {
-    document.addEventListener("visibilitychange", function () {
-      if (document.visibilityState === "hidden") {
-        alert(window.localStorage.getItem("WALLETCONNECT_DEEPLINK_CHOICE"));
-      }
-
+    document.addEventListener("visibilitychange", () => {
+      console.debug({ isIOS: this.isIOS });
+      alert(this.isIOS);
       // if (document.visibilityState === "hidden" && this.isIOS) {
       //   window.localStorage.removeItem("WALLETCONNECT_DEEPLINK_CHOICE");
       // }
