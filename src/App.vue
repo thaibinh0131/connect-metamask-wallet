@@ -69,9 +69,7 @@ export default {
       this.signature = null;
       // This localStorage key is set by @walletconnect/web3-provider
       // https://github.com/pancakeswap/pancake-frontend/blob/bdcb676700584f07b021679c6253dfed1db4d2ec/src/hooks/useAuth.ts#L65
-      if (localStorage.getItem("walletconnect")) {
-        localStorage.removeItem("walletconnect");
-      }
+      localStorage.clear();
     },
   },
 };
