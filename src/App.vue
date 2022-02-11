@@ -13,7 +13,7 @@
 
 <script>
 import ConnectComponent from "./components/ConnectComponent.vue";
-// import Web3 from "web3";
+import Web3 from "web3";
 
 export default {
   name: "App",
@@ -26,6 +26,20 @@ export default {
         navigator.userAgent
       );
     },
+    isIOS() {
+      return (
+        [
+          "iPad Simulator",
+          "iPhone Simulator",
+          "iPod Simulator",
+          "iPad",
+          "iPhone",
+          "iPod",
+        ].includes(navigator.platform) ||
+        // iPad on iOS 13 detection
+        (navigator.userAgent.includes("Mac") && "ontouchend" in document)
+      );
+    },
   },
   data() {
     return {
@@ -36,7 +50,13 @@ export default {
       signature: null,
     };
   },
-  mounted() {},
+  mounted() {
+    document.addEventListener("visibilitychange", function () {
+      if (document.visibilityState === "hidden" && this.isIOS) {
+        window.localStorage.removeItem("WALLETCONNECT_DEEPLINK_CHOICE");
+      }
+    });
+  },
   methods: {
     onError(err) {
       console.debug({ err: err.message });
@@ -46,12 +66,12 @@ export default {
       this.provider = provider;
       this.account = account;
       this.chainId = chainId;
-      // const web3 = new Web3(provider);
-      // const signature = await web3.eth.personal.sign(
-      //   `I am signing my message`,
-      //   account
-      // );
-      // this.signature = signature;
+      const web3 = new Web3(provider);
+      const signature = await web3.eth.personal.sign(
+        `I am signing my message`,
+        account
+      );
+      this.signature = signature;
     },
     disconnect() {
       this.provider && this.provider.close && this.provider.close();
