@@ -13,7 +13,7 @@
 
 <script>
 import ConnectComponent from "./components/ConnectComponent.vue";
-import Web3 from "web3";
+// import Web3 from "web3";
 
 export default {
   name: "App",
@@ -43,7 +43,6 @@ export default {
       signature: null,
     };
   },
-
   methods: {
     onError(err) {
       console.debug({ err: err.message });
@@ -53,13 +52,6 @@ export default {
       this.provider = provider;
       this.account = account;
       this.chainId = chainId;
-      const web3 = new Web3(provider);
-
-      const signature = await web3.eth.personal.sign(
-        `I am signing my message`,
-        account
-      );
-      this.signature = signature;
     },
     disconnect() {
       this.provider && this.provider.close && this.provider.close();

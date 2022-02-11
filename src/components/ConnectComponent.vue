@@ -77,7 +77,7 @@ const availableConnectors = [
     description: "Connect to your Metamask Wallet",
     mobile: true,
     mobileOnly: true,
-    href: "https://metamask.app.link/dapp/test-wallet-link-metamask.onrender.com/",
+    href: "https://metamask.app.link/dapp/test-wc-deeplink.onrender.com/",
   },
   {
     type: "walletconnect",
