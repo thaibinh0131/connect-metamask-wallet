@@ -60,11 +60,6 @@ export default {
         account
       );
       this.signature = signature;
-      if (this.isIOS) {
-        if (localStorage.getItem("WALLETCONNECT_DEEPLINK_CHOICE")) {
-          localStorage.removeItem("WALLETCONNECT_DEEPLINK_CHOICE");
-        }
-      }
     },
     disconnect() {
       this.provider && this.provider.close && this.provider.close();
