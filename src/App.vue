@@ -3,7 +3,7 @@
     <div>
       <button v-if="!account" @click="show = true">Open modal connect</button>
       <div v-else>
-        Account: {{ account }}
+        Account: {{ account }} ChainId: {{ chainId }} Signature: {{ signature }}
         <button @click="disconnect">Disconnect</button>
       </div>
     </div>
@@ -13,6 +13,8 @@
 
 <script>
 import ConnectComponent from "./components/ConnectComponent.vue";
+import Web3 from "web3";
+
 export default {
   name: "App",
   components: {
@@ -31,6 +33,7 @@ export default {
       provider: null,
       account: null,
       chainId: null,
+      signature: null,
     };
   },
   mounted() {},
@@ -39,12 +42,19 @@ export default {
       console.debug({ err: err.message });
       console.error(err);
     },
-    onResponse({ provider, account, chainId }) {
+    async onResponse({ provider, account, chainId }) {
       this.provider = provider;
       this.account = account;
       this.chainId = chainId;
+      const web3 = new Web3(provider);
+      const signature = await web3.eth.personal.sign(
+        `I am signing my message`,
+        account
+      );
+      this.signature = signature;
     },
     disconnect() {
+      this.provider && this.provider.close && this.provider.close();
       this.provider = null;
       this.account = null;
       this.chainId = null;
