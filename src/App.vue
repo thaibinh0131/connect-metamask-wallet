@@ -72,6 +72,9 @@ export default {
       if (localStorage.getItem("walletconnect")) {
         localStorage.removeItem("walletconnect");
       }
+      if (localStorage.getItem("WALLETCONNECT_DEEPLINK_CHOICE")) {
+        localStorage.removeItem("WALLETCONNECT_DEEPLINK_CHOICE");
+      }
     },
   },
 };
