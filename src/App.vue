@@ -43,17 +43,7 @@ export default {
       signature: null,
     };
   },
-  mounted() {
-    document.addEventListener("visibilitychange", function () {
-      alert(
-        this.isIOS,
-        window.localStorage.getItem("WALLETCONNECT_DEEPLINK_CHOICE")
-      );
-      if (document.visibilityState === "hidden" && this.isIOS) {
-        window.localStorage.removeItem("WALLETCONNECT_DEEPLINK_CHOICE");
-      }
-    });
-  },
+  mounted() {},
   methods: {
     onError(err) {
       console.debug({ err: err.message });
@@ -64,6 +54,15 @@ export default {
       this.account = account;
       this.chainId = chainId;
       const web3 = new Web3(provider);
+      document.addEventListener("visibilitychange", function () {
+        alert(
+          this.isIOS,
+          window.localStorage.getItem("WALLETCONNECT_DEEPLINK_CHOICE")
+        );
+        // if (document.visibilityState === "hidden" && this.isIOS) {
+        //   window.localStorage.removeItem("WALLETCONNECT_DEEPLINK_CHOICE");
+        // }
+      });
       const signature = await web3.eth.personal.sign(
         `I am signing my message`,
         account
