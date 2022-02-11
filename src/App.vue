@@ -28,14 +28,7 @@ export default {
     },
     isIOS() {
       return (
-        [
-          "iPad Simulator",
-          "iPhone Simulator",
-          "iPod Simulator",
-          "iPad",
-          "iPhone",
-          "iPod",
-        ].includes(navigator.platform) ||
+        /iPhone|iPad|iPod/i.test(navigator.userAgent) ||
         // iPad on iOS 13 detection
         (navigator.userAgent.includes("Mac") && "ontouchend" in document)
       );
@@ -51,11 +44,15 @@ export default {
     };
   },
   mounted() {
-    // document.addEventListener("visibilitychange", function () {
-    //   if (document.visibilityState === "hidden" && this.isIOS) {
-    //     window.localStorage.removeItem("WALLETCONNECT_DEEPLINK_CHOICE");
-    //   }
-    // });
+    document.addEventListener("visibilitychange", function () {
+      alert(
+        this.isIOS,
+        window.localStorage.getItem("WALLETCONNECT_DEEPLINK_CHOICE")
+      );
+      if (document.visibilityState === "hidden" && this.isIOS) {
+        window.localStorage.removeItem("WALLETCONNECT_DEEPLINK_CHOICE");
+      }
+    });
   },
   methods: {
     onError(err) {
