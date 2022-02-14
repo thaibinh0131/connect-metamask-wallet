@@ -94,15 +94,16 @@ export default {
       ];
       const rs = await contract["transfer"](...params, {
         from: this.account,
-      })
-        .then((res) => res)
-        .catch((err) => {
-          // we only care if the error is something _other_ than the user rejected the tx
-          console.error(err);
-          throw err?.data || err;
-        });
-      console.log("send transaction result:>>", rs);
-      return await rs.wait();
+      });
+      // .then((res) => res)
+      // .catch((err) => {
+      //   // we only care if the error is something _other_ than the user rejected the tx
+      //   console.error(err);
+      //   throw err?.data || err;
+      // });
+      return rs;
+      // console.log("send transaction result:>>", rs);
+      // return await rs.wait();
     },
   },
 };
