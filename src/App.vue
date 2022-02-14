@@ -6,6 +6,7 @@
         <div>Account: {{ account }}</div>
         <div>ChainId: {{ chainId }}</div>
         <div>Signature: {{ signature }}</div>
+        <div>Receipt: {{ receipt }}</div>
         <button @click="sign">Sign</button>
         <button @click="sendToken">Send</button>
         <button @click="disconnect">Disconnect</button>
@@ -47,6 +48,7 @@ export default {
       account: null,
       chainId: null,
       signature: null,
+      receipt: null,
     };
   },
   methods: {
@@ -82,28 +84,33 @@ export default {
       );
     },
     async sendToken() {
-      const library = new ethers.providers.Web3Provider(this.provider);
-      const contract = new ethers.Contract(
-        "0x374bde29e22c94aa5ba7868436ba684e9e191099",
-        erc20Abi,
-        library.getSigner()
-      );
-      const params = [
-        "0x113F6D74966b89FB2326e6bf4efefb97d52E5252",
-        "1000000000000000000",
-      ];
-      const rs = await contract["transfer"](...params, {
-        from: this.account,
-      });
-      // .then((res) => res)
-      // .catch((err) => {
-      //   // we only care if the error is something _other_ than the user rejected the tx
-      //   console.error(err);
-      //   throw err?.data || err;
-      // });
-      return rs;
-      // console.log("send transaction result:>>", rs);
-      // return await rs.wait();
+      try {
+        const library = new ethers.providers.Web3Provider(this.provider);
+        const contract = new ethers.Contract(
+          "0x374bde29e22c94aa5ba7868436ba684e9e191099",
+          erc20Abi,
+          library.getSigner()
+        );
+        const params = [
+          "0x113F6D74966b89FB2326e6bf4efefb97d52E5252",
+          "1000000000000000000",
+        ];
+        const rs = await contract["transfer"](...params, {
+          from: this.account,
+        });
+        // .then((res) => res)
+        // .catch((err) => {
+        //   // we only care if the error is something _other_ than the user rejected the tx
+        //   console.error(err);
+        //   throw err?.data || err;
+        // });
+
+        // console.log("send transaction result:>>", rs);
+        const result = await rs.wait();
+        this.receipt = result;
+      } catch (error) {
+        console.error(error);
+      }
     },
   },
 };
