@@ -3,7 +3,10 @@
     <div>
       <button v-if="!account" @click="show = true">Open modal connect</button>
       <div v-else>
-        Account: {{ account }} ChainId: {{ chainId }}
+        <div>Account: {{ account }}</div>
+        <div>ChainId: {{ chainId }}</div>
+        <div>Signature: {{ signature }}</div>
+        <button @click="sign">Sign</button>
         <button @click="disconnect">Disconnect</button>
       </div>
     </div>
@@ -13,7 +16,7 @@
 
 <script>
 import ConnectComponent from "./components/ConnectComponent.vue";
-// import Web3 from "web3";
+import Web3 from "web3";
 
 export default {
   name: "App",
@@ -67,6 +70,13 @@ export default {
       if (window.localStorage.getItem("WALLETCONNECT_DEEPLINK_CHOICE")) {
         window.localStorage.removeItem("WALLETCONNECT_DEEPLINK_CHOICE");
       }
+    },
+    async sign() {
+      const web3 = new Web3(this.provider);
+      this.signature = await web3.eth.personal.sign(
+        `I am signing my message`,
+        this.account
+      );
     },
   },
 };

@@ -1837,7 +1837,7 @@
     js-sha3 "0.8.0"
     query-string "6.13.5"
 
-"@walletconnect/web3-provider@^1.5.0":
+"@walletconnect/web3-provider@^1.7.1":
   version "1.7.1"
   resolved "https://registry.yarnpkg.com/@walletconnect/web3-provider/-/web3-provider-1.7.1.tgz#3b7bf41bfd0198b18f5cc5626e1ec28e931667c7"
   integrity sha512-dhoYwQaBVbaKIiELNeCF4kW7Dslbf73wDIsxOF9gmjVch1Qi18kNlqbR03u56iBcAsXU0tAwfd9Z7cGHfUX1Fg==
