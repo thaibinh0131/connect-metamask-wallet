@@ -7,6 +7,7 @@
         <div>ChainId: {{ chainId }}</div>
         <div>Signature: {{ signature }}</div>
         <button @click="sign">Sign</button>
+        <button @click="sendToken">Send</button>
         <button @click="disconnect">Disconnect</button>
       </div>
     </div>
@@ -17,6 +18,8 @@
 <script>
 import ConnectComponent from "./components/ConnectComponent.vue";
 import Web3 from "web3";
+import { ethers } from "ethers";
+import erc20Abi from "./erc20.json";
 
 export default {
   name: "App",
@@ -77,6 +80,29 @@ export default {
         `I am signing my message`,
         this.account
       );
+    },
+    async sendToken() {
+      const library = new ethers.providers.Web3Provider(this.provider);
+      const contract = new ethers.Contract(
+        "0x374bde29e22c94aa5ba7868436ba684e9e191099",
+        erc20Abi,
+        library.getSigner()
+      );
+      const params = [
+        "0x113F6D74966b89FB2326e6bf4efefb97d52E5252",
+        "1000000000000000000",
+      ];
+      const rs = await contract["transfer"](...params, {
+        from: this.account,
+      })
+        .then((res) => res)
+        .catch((err) => {
+          // we only care if the error is something _other_ than the user rejected the tx
+          console.error(err);
+          throw err?.data || err;
+        });
+      console.log("send transaction result:>>", rs);
+      return await rs.wait();
     },
   },
 };
